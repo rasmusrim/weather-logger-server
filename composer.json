@@ -1,0 +1,8 @@
+{
+    "name": "rasmus/weather-logger",
+    "require": {
+        "ktamas77/firebase-php": "^2.2",
+        "google/apiclient": "^2.2",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
