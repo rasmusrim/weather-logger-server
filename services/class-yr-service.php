@@ -20,9 +20,7 @@ class YrService {
 		$weather_stats->set_low_clouds((string)$now->location->lowClouds['percent'][0] );
 		$weather_stats->set_medium_clouds((string)$now->location->mediumClouds['percent'][0] );
 		$weather_stats->set_high_clouds((string)$now->location->highClouds['percent'][0] );
-		print_r($now);
-		print_r($weather_stats);
 
-		die();
+		return $weather_stats;
 	}
 }
