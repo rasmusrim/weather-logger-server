@@ -8,17 +8,21 @@ class YrService {
 		$client  = new \GuzzleHttp\Client();
 		$request = $client->request( 'GET', $url );
 
-		$body = (string) $request->getBody();
+		$body = $request->getBody()->getContents();
+
 		$xml  = simplexml_load_string( $body );
+		$now = $xml->product->time[0];
+		$weather_stats = new WeatherStats();
+		$weather_stats->set_cloudiness((string)$now->location->cloudiness['percent'][0] );
+		$weather_stats->set_pressure((string)$now->location->pressure['value'][0] );
+		$weather_stats->set_humidity((string)$now->location->humidity['value'][0] );
+		$weather_stats->set_temperature((string)$now->location->temperature['value'][0] );
+		$weather_stats->set_low_clouds((string)$now->location->lowClouds['percent'][0] );
+		$weather_stats->set_medium_clouds((string)$now->location->mediumClouds['percent'][0] );
+		$weather_stats->set_high_clouds((string)$now->location->highClouds['percent'][0] );
+		print_r($now);
+		print_r($weather_stats);
 
-		foreach ( $xml->product->time as $forecast ) {
-			$weather_stats = new WeatherStats();
-			$weather_stats->set_cloudiness( $forecast->location->cloudiness );
-
-
-			$return_value[] = $weather_stats;
-		}
-
-		print_r( $weather_stats );
+		die();
 	}
 }
